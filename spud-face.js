@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   licenseInfo.addEventListener("input", (event) => {
     licenseCardFields.forEach((field) => {
       if (field.id.includes(event.target.id)) {
-        if(event.target.id === "donor-status") {
+        if (event.target.id === "donor-status") {
           let licenseStatus = document.getElementById("card-donor-status");
           licenseStatus.innerHTML = event.target.checked ? "yes" : "no";
         } else {
@@ -16,11 +16,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
         }
       }
     });
+    setTimeout((event) =>checkLicenseNumbers, 500);
   });
 
   // ** Phase 2: Add focus and blur events to form inputs **
   // let licenseForms = document.getElementsByClassName("form__input")
-  licenseInfo.addEventListener("focusin", event =>{
+  licenseInfo.addEventListener("focusin", event => {
     event.target.style.backgroundColor = "#90ee90"
   })
 
@@ -33,15 +34,33 @@ window.addEventListener("DOMContentLoaded", (event) => {
   const checkLicenseNumbers = event => {
     const licenseValue = document.getElementById("license-num").value
     const confirmLicValue = document.getElementById("license-num-confirm").value
+    const licenseField = document.getElementById("license-num");
+    const licenseNumConfirm = document.getElementById("license-num-confirm");
 
-  if(licenseValue !== confirmLicValue){
-    event.preventDefault()
-    event.target.style.backgroundColor = "#ff7f50"
+    if (licenseValue !== confirmLicValue) {
+      event.preventDefault();
+      licenseField.style.backgroundColor = "#ff7f50";
+      licenseNumConfirm.style.backgroundColor = "#ff7f50";
+    }
   }
-  }
+  // licenseInfo.addEventListener("submit", checkLicenseNumbers);
 
+  let button = document.getElementsByClassName("form__submit")[0];
+  console.log(button);
 
-  licenseInfo.addEventListener("submit", checkLicenseNumbers)
+  let counter = 0;
+  button.addEventListener("click", event => {
+    event.preventDefault();
+    counter++;
+    button.innerHTML = `Number of clicks ${counter}.`
+  });
+
+  // const updateSubmit = () => {
+  //   let counter = 0;
+
+  //   }
+  // button.addEventListener("click", updateSubmit);
+
 
   // ** Phase 4: Update submit button click count **
 
